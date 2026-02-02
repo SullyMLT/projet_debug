@@ -1,5 +1,8 @@
 package dbg;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class JDISimpleDebuggee {
 
     public static void main(String[] args) {
@@ -8,6 +11,11 @@ public class JDISimpleDebuggee {
         int x = 40;
         int power = 2;
         printPower(x, power);
+        List<String> stringList = new ArrayList<>();
+        stringList.add("Bonjour");
+        stringList.add("tout");
+        stringList.add("le");
+        stringList.add("monde");
     }
 
     public static double power(int x, int power) {
