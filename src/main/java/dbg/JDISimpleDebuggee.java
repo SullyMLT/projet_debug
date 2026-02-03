@@ -13,9 +13,9 @@ public class JDISimpleDebuggee {
         printPower(x, power);
         List<String> stringList = new ArrayList<>();
         stringList.add("Bonjour");
-        stringList.add("tout");
-        stringList.add("le");
-        stringList.add("monde");
+        stringList.add("Hello");
+        stringList.add("Hola");
+        stringList.add("Ciao");
     }
 
     public static double power(int x, int power) {
