@@ -41,7 +41,7 @@ public class ExecutionSnapshot {
     public String printLocalVariables() {
         StringBuilder result = new StringBuilder();
         if (localVariables.isEmpty()) {
-            result.append("\n");
+            //result.append("\n");
         } else {
             for (Map.Entry<String, VariableSnapshot> entry : localVariables.entrySet()) {
                 result.append(entry.getValue().printToConsole());

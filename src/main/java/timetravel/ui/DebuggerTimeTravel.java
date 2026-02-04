@@ -77,7 +77,7 @@ public class DebuggerTimeTravel extends JFrame {
         JButton backBtn = new JButton("<- BACK");
         backBtn.setBackground(new Color(100, 150, 255));
         backBtn.setForeground(Color.WHITE);
-        backBtn.setToolTipText("Go back to previous snapshot");
+        backBtn.setToolTipText("Go back to previous state");
         backBtn.addActionListener(e -> debugger.handleGuiInput("back"));
         toolbar.add(backBtn);
 
