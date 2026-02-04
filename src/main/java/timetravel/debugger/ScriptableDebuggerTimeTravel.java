@@ -46,7 +46,7 @@ public class ScriptableDebuggerTimeTravel {
         commandMap.put("show-snapshots", new ShowSnapshotsCommand(timeTravelEngine));
         commandMap.put("back", new BackCommand(timeTravelEngine));
         commandMap.put("forward", new ForwardCommand(timeTravelEngine));
-        commandMap.put("breakpoint", new BreakpointCommand(timeTravelEngine));
+        commandMap.put("breakpoint", new AddBreakpointCommand(timeTravelEngine));
         commandMap.put("remove-breakpoint", new RemoveBreakpointCommand(timeTravelEngine));
     }
 

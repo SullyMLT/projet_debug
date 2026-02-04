@@ -7,11 +7,11 @@ import timetravel.debugger.TimeTravelEngine;
 
 import java.util.List;
 
-public class BreakpointCommand implements Command {
+public class AddBreakpointCommand implements Command {
 
     private TimeTravelEngine timeTravelEngine;
 
-    public BreakpointCommand(TimeTravelEngine engine) {
+    public AddBreakpointCommand(TimeTravelEngine engine) {
         this.timeTravelEngine = engine;
     }
 
