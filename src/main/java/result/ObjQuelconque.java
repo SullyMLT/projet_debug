@@ -2,10 +2,10 @@ package result;
 
 public class ObjQuelconque {
     String nom;
-    int valeur;
+    int age;
 
     public ObjQuelconque() {
         this.nom = "nom";
-        this.valeur = 10;
+        this.age = 10;
     }
 }

@@ -5,6 +5,7 @@ import com.sun.jdi.*;
 import java.util.HashMap;
 import java.util.Map;
 
+// call stack frame snapshot
 public class StackFrameSnapshot {
     private final String className;
     private final String methodName;

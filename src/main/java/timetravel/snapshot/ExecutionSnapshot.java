@@ -5,10 +5,8 @@ import com.sun.jdi.*;
 import java.util.*;
 
 public class ExecutionSnapshot {
-    private final long timestamp;
     private final int snapshotId;
     private final Location location;
-    private final String threadName;
     // stack frame
     private final List<StackFrameSnapshot> stackFrames;
     // variable etats
@@ -17,9 +15,6 @@ public class ExecutionSnapshot {
 
     public ExecutionSnapshot(int id, ThreadReference thread) throws IncompatibleThreadStateException, AbsentInformationException {
         this.snapshotId = id;
-        this.timestamp = System.currentTimeMillis();
-        this.threadName = thread.name();
-        
         StackFrame currentFrame = thread.frame(0);
         this.location = currentFrame.location();
         this.stackFrames = captureStackFrames(thread);
@@ -44,9 +39,7 @@ public class ExecutionSnapshot {
     }
 
     public int getSnapshotId() { return snapshotId; }
-    public long getTimestamp() { return timestamp; }
     public Location getLocation() { return location; }
-    public String getThreadName() { return threadName; }
     public List<StackFrameSnapshot> getStackFrames() { return stackFrames; }
     public Map<String, VariableSnapshot> getLocalVariables() { return localVariables; }
     public int getLineNumber() { return location.lineNumber(); }

@@ -10,13 +10,11 @@ import java.util.*;
 public class TimeTravelEngine {
     private final List<ExecutionSnapshot> executionHistory;
     private int currentSnapshotIndex;
-    private boolean isRecording;
     private int nextSnapshotId;
     
     public TimeTravelEngine() {
         this.executionHistory = new ArrayList<>();
         this.currentSnapshotIndex = -1;
-        this.isRecording = true;
         this.nextSnapshotId = 0;
     }
     
@@ -25,7 +23,7 @@ public class TimeTravelEngine {
         try {
             ExecutionSnapshot snapshot = new ExecutionSnapshot(nextSnapshotId++, thread);
 
-            checkSnapshotUnchange(snapshot);
+            checkSnapshotUnchangeMultiple(snapshot);
 
             executionHistory.add(snapshot);
             currentSnapshotIndex = executionHistory.size() - 1;
@@ -37,11 +35,11 @@ public class TimeTravelEngine {
         }
     }
 
-    public boolean checkSnapshotUnchange(ExecutionSnapshot snapshot) {
+    public boolean checkSnapshotUnchangeMultiple(ExecutionSnapshot snapshot) {
         for (ExecutionSnapshot execSnapshot : executionHistory) {
             if (execSnapshot.getLocation().equals(snapshot.getLocation())
                     && execSnapshot.getLocalVariables().equals(snapshot.getLocalVariables())) {
-                // Doublon, ne pas ajouter
+                // doublon, ne pas ajouter
                 nextSnapshotId--;
                 return false;
             }else{
