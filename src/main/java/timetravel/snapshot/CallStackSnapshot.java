@@ -5,14 +5,13 @@ import com.sun.jdi.*;
 import java.util.HashMap;
 import java.util.Map;
 
-// call stack frame snapshot
-public class StackFrameSnapshot {
+public class CallStackSnapshot {
     private final String className;
     private final String methodName;
     private final int lineNumber;
     private final Map<String, VariableSnapshot> localVariables;
 
-    public StackFrameSnapshot(StackFrame frame) {
+    public CallStackSnapshot(StackFrame frame) {
         Location loc = frame.location();
         this.className = loc.declaringType().name();
         this.methodName = loc.method().name();

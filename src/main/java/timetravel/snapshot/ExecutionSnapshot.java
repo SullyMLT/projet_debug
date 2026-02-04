@@ -8,7 +8,7 @@ public class ExecutionSnapshot {
     private final int snapshotId;
     private final Location location;
     // stack frame capturee lors de l execution
-    private final List<StackFrameSnapshot> stackFrames;
+    private final List<CallStackSnapshot> stackFrames;
     // variable etats
     private final Map<String, VariableSnapshot> localVariables;
     private boolean breakpoint;
@@ -21,10 +21,10 @@ public class ExecutionSnapshot {
         this.localVariables = captureLocalVariables(currentFrame);
     }
     
-    private List<StackFrameSnapshot> captureStackFrames(ThreadReference thread) throws IncompatibleThreadStateException {
-        List<StackFrameSnapshot> frames = new ArrayList<>();
+    private List<CallStackSnapshot> captureStackFrames(ThreadReference thread) throws IncompatibleThreadStateException {
+        List<CallStackSnapshot> frames = new ArrayList<>();
         for (StackFrame frame : thread.frames()) {
-            frames.add(new StackFrameSnapshot(frame));
+            frames.add(new CallStackSnapshot(frame));
         }
         return frames;
     }
@@ -52,7 +52,7 @@ public class ExecutionSnapshot {
 
     public int getSnapshotId() { return snapshotId; }
     public Location getLocation() { return location; }
-    public List<StackFrameSnapshot> getStackFrames() { return stackFrames; }
+    public List<CallStackSnapshot> getStackFrames() { return stackFrames; }
     public Map<String, VariableSnapshot> getLocalVariables() { return localVariables; }
     public int getLineNumber() { return location.lineNumber(); }
     public boolean isBreakpoint() { return breakpoint; }

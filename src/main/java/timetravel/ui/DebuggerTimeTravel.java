@@ -1,12 +1,10 @@
 package timetravel.ui;
 
 import com.sun.jdi.*;
-import commands.timetravelcommand.FollowVariableCommand;
-import result.ResultCommand;
 import timetravel.debugger.TimeTravelEngine;
 import timetravel.debugger.ScriptableDebuggerTimeTravel;
 import timetravel.snapshot.ExecutionSnapshot;
-import timetravel.snapshot.StackFrameSnapshot;
+import timetravel.snapshot.CallStackSnapshot;
 import timetravel.snapshot.VariableModification;
 import timetravel.snapshot.VariableSnapshot;
 
@@ -275,7 +273,7 @@ public class DebuggerTimeTravel extends JFrame {
 
                 stackModel.clear();
                 // ajoute dans la liste de call stack
-                for (StackFrameSnapshot frame : snapshot.getStackFrames()) {
+                for (CallStackSnapshot frame : snapshot.getStackFrames()) {
                     stackModel.addElement(frame.toString());
                 }
 
@@ -414,9 +412,9 @@ public class DebuggerTimeTravel extends JFrame {
         if (index == -1) return;
 
         if (currentSnapshot != null) {
-            List<StackFrameSnapshot> frames = currentSnapshot.getStackFrames();
+            List<CallStackSnapshot> frames = currentSnapshot.getStackFrames();
             if (index >= 0 && index < frames.size()) {
-                StackFrameSnapshot frame = frames.get(index);
+                CallStackSnapshot frame = frames.get(index);
 
                 if (!frame.getClassName().equals(currentClassName)) {
                     currentClassName = frame.getClassName();
@@ -453,7 +451,7 @@ public class DebuggerTimeTravel extends JFrame {
         }
     }
 
-    private void updateInspectorFromStackFrame(StackFrameSnapshot frame) {
+    private void updateInspectorFromStackFrame(CallStackSnapshot frame) {
         DefaultMutableTreeNode root = new DefaultMutableTreeNode("Variables");
 
         try {
