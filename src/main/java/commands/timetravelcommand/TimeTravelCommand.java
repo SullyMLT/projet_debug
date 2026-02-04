@@ -29,19 +29,19 @@ public class TimeTravelCommand implements Command {
         try {
             snapshotId = Integer.parseInt(args.get(0));
         } catch (NumberFormatException e) {
-            return new ResultCommand(false, null, "Error: invalid snapshot ID");
+            return new ResultCommand(false, null, "Error: invalid");
         }
 
         ExecutionSnapshot snapshot = timeTravelEngine.travelToSnapshot(snapshotId);
         
         if (snapshot == null) {
             return new ResultCommand(false, null, 
-                "Error: snapshot #" + snapshotId + " not found");
+                "Error: snapshot not found");
         }
         
         StringBuilder display = new StringBuilder();
-        display.append("Time Travel to Snapshot #").append(snapshotId).append("\n");
-        display.append("Location: ").append(snapshot.getLocation().lineNumber());
+        display.append("Time Travel to line: "+ snapshot.getLocation().lineNumber()+"\n");
+        display.append(snapshot.printLocalVariables());
         
         return new ResultCommand(true, snapshot, display.toString());
     }

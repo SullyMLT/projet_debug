@@ -32,7 +32,7 @@ public class StepOverCommand implements Command {
                 ExecutionSnapshot snapshot = timeTravelEngine.getCurrentSnapshot();
                 StringBuilder display = new StringBuilder();
                 display.append("Step-over\n");
-                display.append(snapshot.toString());
+                display.append(snapshot.printLocalVariables());
                 return new ResultCommand(true, snapshot, display.toString());
             } else {
                 return new ResultCommand(false, null, "program finished execution");

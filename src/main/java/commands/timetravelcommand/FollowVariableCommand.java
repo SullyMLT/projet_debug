@@ -31,20 +31,22 @@ public class FollowVariableCommand implements Command {
 
         if (modifications.isEmpty()) {
             return new ResultCommand(false, modifications, 
-                "No snapshots found for variable: " + varName);
+                "No modification found for variable: " + varName);
         }
 
         StringBuilder display = new StringBuilder();
         display.append("Variable Tracking: ").append(varName).append("\n");
 
         String currentSnapshotValue = "";
+        int count = 1;
         for (VariableModification mod : modifications) {
             if (!currentSnapshotValue.equals(mod.getValue())){
                 currentSnapshotValue = mod.getValue();
-                display.append(String.format("Snapshot #%d | Value: %s | Line: %d\n",
-                        mod.getSnapshot().getSnapshotId(),
+                display.append(String.format("Modification: %d | Value: %s | Line: %d\n",
+                        count,
                         mod.getValue() == null ? "null" : mod.getValue(),
                         mod.getSnapshot().getLineNumber()));
+                count++;
             }
         }
         

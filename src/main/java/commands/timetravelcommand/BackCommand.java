@@ -25,7 +25,7 @@ public class BackCommand implements Command {
 
             StringBuilder display = new StringBuilder();
             display.append("Back to line: "+snapshot.getLocation().lineNumber()+"\n");
-            display.append(snapshot.toString());
+            display.append(snapshot.printLocalVariables());
 
             return new ResultCommand(true, snapshot, display.toString());
         } else {

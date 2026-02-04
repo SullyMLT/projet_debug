@@ -213,7 +213,7 @@ public class DebuggerTimeTravel extends JFrame {
         JPanel panel = new JPanel(new BorderLayout(5, 5));
         panel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
-        String[] columnNames = {"Snapshot", "Value", "Line"};
+        String[] columnNames = {"Modification", "Value", "Line"};
         variableTrackingModel = new DefaultTableModel(columnNames, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -228,9 +228,14 @@ public class DebuggerTimeTravel extends JFrame {
                 if (e.getClickCount() == 2) {
                     int row = variableTrackingTable.getSelectedRow();
                     if (row != -1) {
-                        int snapshotId = (int) variableTrackingModel.getValueAt(row, 0);
-                        // appelle de time travel dans la handleGuiInput
-                        debugger.handleGuiInput("time-travel " + snapshotId);
+                        List<ExecutionSnapshot> execSnapshots = timeTravelEngine.getAllSnapshots();
+                        for (ExecutionSnapshot snap : execSnapshots) {
+                            if (snap.getLineNumber() == (int) variableTrackingModel.getValueAt(row, 2)) {
+                                // trouve le snapshot correspondant
+                                debugger.handleGuiInput("time-travel " + snap.getSnapshotId());
+                                return;
+                            }
+                        }
                     }
                 }
             }
@@ -341,14 +346,16 @@ public class DebuggerTimeTravel extends JFrame {
         SwingUtilities.invokeLater(() -> {
             variableTrackingModel.setRowCount(0);
             String currentSnapshotValue = "";
+            int modificationCount = 1;
             for (VariableModification mod : modifications) {
                 if (!currentSnapshotValue.equals(mod.getValue())){
                     currentSnapshotValue = mod.getValue();
                     variableTrackingModel.addRow(new Object[]{
-                            mod.getSnapshot().getSnapshotId(),
+                            modificationCount,
                             mod.getValue() == null ? "null" : mod.getValue(),
                             mod.getSnapshot().getLineNumber()
                     });
+                    modificationCount++;
                 }
             }
             variableTrackingTable.revalidate();

@@ -7,7 +7,7 @@ import java.util.*;
 public class ExecutionSnapshot {
     private final int snapshotId;
     private final Location location;
-    // stack frame
+    // stack frame capturee lors de l execution
     private final List<StackFrameSnapshot> stackFrames;
     // variable etats
     private final Map<String, VariableSnapshot> localVariables;
@@ -38,6 +38,18 @@ public class ExecutionSnapshot {
         return vars;
     }
 
+    public String printLocalVariables() {
+        StringBuilder result = new StringBuilder();
+        if (localVariables.isEmpty()) {
+            result.append("\n");
+        } else {
+            for (Map.Entry<String, VariableSnapshot> entry : localVariables.entrySet()) {
+                result.append(entry.getValue().printToConsole());
+            }
+        }
+        return result.toString();
+    }
+
     public int getSnapshotId() { return snapshotId; }
     public Location getLocation() { return location; }
     public List<StackFrameSnapshot> getStackFrames() { return stackFrames; }
@@ -48,8 +60,7 @@ public class ExecutionSnapshot {
     
     @Override
     public String toString() {
-        return String.format("Snapshot #%d @ %s:%d",
-            snapshotId,
+        return String.format("%s, line : %d",
             location.declaringType().name(),
             location.lineNumber()
         );

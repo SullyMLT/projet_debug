@@ -31,8 +31,8 @@ public class StepCommand implements Command {
             if (timeTravelEngine.forwardtrack()) {
                 ExecutionSnapshot snapshot = timeTravelEngine.getCurrentSnapshot();
                 StringBuilder display = new StringBuilder();
-                display.append("Step in\n");
-                display.append(snapshot.toString());
+                display.append("Step into\n");
+                display.append(snapshot.printLocalVariables());
                 return new ResultCommand(true, snapshot, display.toString());
             } else {
                 return new ResultCommand(false, null, "program finished execution");

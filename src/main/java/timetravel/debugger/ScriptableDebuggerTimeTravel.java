@@ -310,15 +310,9 @@ public class ScriptableDebuggerTimeTravel {
 
             if (debuggerUI != null) {
                 SwingUtilities.invokeLater(() -> {
-                    debuggerUI.appendToConsole("\nCurrent snapshot:");
-                    debuggerUI.appendToConsole(firstSnapshot.toString());
-
                     // charge le premier snapshot dans l'ui
                     debuggerUI.updateUIFromSnapshot(firstSnapshot);
                 });
-            } else {
-                System.out.println("\nCurrent snapshot:");
-                System.out.println(firstSnapshot.toString());
             }
         }
 

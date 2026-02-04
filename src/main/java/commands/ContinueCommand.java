@@ -22,18 +22,18 @@ public class ContinueCommand implements Command {
 
     @Override
     public ResultCommand execute(ThreadReference thread, VirtualMachine vm, List<String> args) {
-        // Mode replay : vm == null && thread == null -> aller au dernier snapshot ou prochain breakpoint
+        // vm et thread == null -> vm eteinte
         if (vm == null && thread == null) {
             if (timeTravelEngine == null) {
                 return new ResultCommand(false, null, "TimeTravelEngine not available");
             }
-            // Aller au dernier snapshot ou au prochain breakpoint
+            // aller au dernier snapshot ou au prochain breakpoint
             while (timeTravelEngine.forwardtrack()) {
                 ExecutionSnapshot snapshot = timeTravelEngine.getCurrentSnapshot();
                 if (snapshot.isBreakpoint()){
                     StringBuilder display = new StringBuilder();
                     display.append("Continue stop by breakpoint at line: "+snapshot.getLocation().lineNumber()+"\n");
-                    display.append(snapshot.toString());
+                    display.append(snapshot.printLocalVariables());
                     return new ResultCommand(true, snapshot, display.toString());
                 }
             }
@@ -41,13 +41,13 @@ public class ContinueCommand implements Command {
             if (snapshot != null) {
                 StringBuilder display = new StringBuilder();
                 display.append("Continue to last line of execution\n");
-                display.append(snapshot.toString());
+                display.append(snapshot.printLocalVariables());
                 return new ResultCommand(true, snapshot, display.toString());
             }
             return new ResultCommand(false, null, "No snapshots available");
         }
 
-        // Mode VM active
+        // vm enable
         return new ResultCommand(true, null, "Continue execution");
     }
 

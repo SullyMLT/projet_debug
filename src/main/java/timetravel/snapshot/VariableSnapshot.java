@@ -65,6 +65,20 @@ public class VariableSnapshot {
         }
     }
 
+    public String printToConsole() {
+        return printToConsole(0);
+    }
+
+    private String printToConsole(int indentLevel) {
+        String indent = "  ".repeat(indentLevel);
+        StringBuilder output = new StringBuilder();
+        output.append(indent).append(this.toString()).append("\n");
+        for (VariableSnapshot child : children) {
+            output.append(child.printToConsole(indentLevel + 1));
+        }
+        return output.toString();
+    }
+
     public String getName() { return name; }
     public String getTypeName() { return typeName; }
     public String getValueString() { return valueString; }

@@ -26,12 +26,12 @@ public class ShowSnapshotsCommand implements Command {
         List<ExecutionSnapshot> snapshots = timeTravelEngine.getAllSnapshots();
         
         if (snapshots.isEmpty()) {
-            return new ResultCommand(false, snapshots, "No snapshots collected yet");
+            return new ResultCommand(false, snapshots, "No modification yet");
         }
 
         StringBuilder display = new StringBuilder();
-        display.append("Execution Snapshots\n");
-        display.append("Total: ").append(snapshots.size()).append(" snapshot(s)\n\n");
+        display.append("Execution modification\n");
+        display.append("Total: ").append(snapshots.size()).append("\n");
         
         for (ExecutionSnapshot snapshot : snapshots) {
             display.append(snapshot.toString());
